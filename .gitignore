@@ -1,0 +1,24 @@
+# OS
+.DS_STORE
+
+# Logs
+*.log
+npm-debug.log*
+
+# vendor dependencies
+node_modules
+/vendor/
+
+# IDEs
+.idea
+*.iml
+.vscode
+.vs
+.history
+
+# Compiled files
+lib/
+
+# Example files
+data/**/*.yaml
+data/**/*.yml
