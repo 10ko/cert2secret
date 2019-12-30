@@ -21,10 +21,14 @@ export const secretManifest = {
   data: {
     "tls.crt": "",
     "tls.key": "",
-  }
+  },
 }
 
-export const computeDestination = (cert: string, dest?: string, name?: string): string => {
+export const computeDestination = (
+  cert: string,
+  dest?: string,
+  name?: string
+): string => {
   let output = process.cwd()
   if (dest) {
     output = dest
@@ -44,8 +48,9 @@ export default async function cert2secret(params: Cert2SecretParams) {
   try {
     keyContent = (await readFile(key)).toString("base64")
     certContent = (await readFile(cert)).toString("base64")
-  } catch(error) {
-    if (error.code === "ENOENT") { // Check if ENOENT or anything else
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      // Check if ENOENT or anything else
       console.log("Couldn't find file: " + error.path)
     } else {
       console.log(error)
@@ -61,11 +66,11 @@ export default async function cert2secret(params: Cert2SecretParams) {
   const parsedManifest = JSON.parse(JSON.stringify(secretManifest))
 
   try {
-    if (!await pathExists(dirname(output))) {
+    if (!(await pathExists(dirname(output)))) {
       await ensureDir(dirname(output))
     }
     await writeFile(output, yaml.safeDump(parsedManifest), "utf8")
-  } catch(error) {
+  } catch (error) {
     console.log(error, secretManifest)
   }
 }
