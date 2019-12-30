@@ -2,15 +2,14 @@
   "name": "cert2secret",
   "version": "0.0.1",
   "description": "Turn your TLS certificates into a Kubernetes TLS secret manifest.",
-  "main": "./lib/index.js",
+  "main": "./dist/index.js",
   "bin": {
-    "cert2secret": "./lib/index.js"
+    "cert2secret": "./dist/index.js"
   },
   "scripts": {
-    "start": "nodemon -L -e ts --ignore lib/ --exec \"npm run build\"",
-    "dev": "npm link && npm run watch",
+    "dev": "npm run build && npm link && npm run watch",
     "watch": "npm run tsc -- -w",
-    "tsc": "tsc -p . --outDir lib --declaration --declarationMap --sourceMap",
+    "tsc": "tsc -p . --outDir dist --declaration --declarationMap --sourceMap",
     "create": "npm run build && npm run test",
     "build": "tsc -p .",
     "test": "jest",
@@ -38,7 +37,6 @@
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^13.1.1",
     "jest": "^24.9.0",
-    "nodemon": "^2.0.2",
     "prettier": "1.19.1",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
