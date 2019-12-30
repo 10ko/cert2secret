@@ -17,7 +17,7 @@ node_modules
 .history
 
 # Compiled files
-lib/
+dist/
 
 # Example files
 data/**/*.yaml

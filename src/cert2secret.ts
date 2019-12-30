@@ -1,6 +1,6 @@
 import { readFile, ensureDir, writeFile, pathExists } from "fs-extra"
 import yaml from "js-yaml"
-import { join, dirname } from "path"
+import { join, dirname, resolve } from "path"
 
 export interface Cert2SecretParams {
   key: string
@@ -31,7 +31,7 @@ export const computeDestination = (
 ): string => {
   let output = process.cwd()
   if (dest) {
-    output = dest
+    output = resolve(process.cwd(), dest)
   }
   if (!dest?.endsWith(".yaml") && !dest?.endsWith(".yml")) {
     output = name ? join(output, `${name}.yaml`) : join(output, `${cert}.yaml`)
@@ -70,6 +70,7 @@ export default async function cert2secret(params: Cert2SecretParams) {
       await ensureDir(dirname(output))
     }
     await writeFile(output, yaml.safeDump(parsedManifest), "utf8")
+
   } catch (error) {
     console.log(error, secretManifest)
   }
