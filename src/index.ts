@@ -16,18 +16,21 @@ program
     "-d --dest <destination>",
     "destination for the generated yaml manifest"
   )
-  .option("--name <name>", "the name of your certificate")
+  .option("--secretname <secretname>", "the name of your certificate")
   .option(
     "--namespace <namespace>",
     "the namespace for your certificate manifest"
   )
 
 program.parse(process.argv)
+debugger
 
 cert2secret({
   key: program.key,
   cert: program.cert,
   dest: program.dest,
-  name: program.name,
+  secretName: program.secretname,
   namespace: program.namespace,
+}).catch((error) => {
+  console.log("something went wrong", error)
 })

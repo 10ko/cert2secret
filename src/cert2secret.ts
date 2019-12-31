@@ -1,12 +1,13 @@
 import { readFile, ensureDir, writeFile, pathExists } from "fs-extra"
 import yaml from "js-yaml"
+import chalk from "chalk"
 import { join, dirname, resolve } from "path"
 
 export interface Cert2SecretParams {
   key: string
   cert: string
   dest?: string
-  name?: string
+  secretName?: string
   namespace?: string
 }
 
@@ -27,23 +28,26 @@ export const secretManifest = {
 export const computeDestination = (
   cert: string,
   dest?: string,
-  name?: string
+  secretName?: string
 ): string => {
   let output = process.cwd()
   if (dest) {
     output = resolve(process.cwd(), dest)
   }
   if (!dest?.endsWith(".yaml") && !dest?.endsWith(".yml")) {
-    output = name ? join(output, `${name}.yaml`) : join(output, `${cert}.yaml`)
+    output = secretName
+      ? join(output, `${secretName}.yaml`)
+      : join(output, `${cert}.yaml`)
   }
   return output
 }
 
 export default async function cert2secret(params: Cert2SecretParams) {
-  const { key, cert, dest, name, namespace } = params
+  debugger
+  const { key, cert, dest, secretName, namespace } = params
   let keyContent = ""
   let certContent = ""
-  const output = computeDestination(cert, dest, name)
+  const output = computeDestination(cert, dest, secretName)
 
   try {
     keyContent = (await readFile(key)).toString("base64")
@@ -60,7 +64,7 @@ export default async function cert2secret(params: Cert2SecretParams) {
 
   secretManifest.data["tls.key"] = keyContent
   secretManifest.data["tls.crt"] = certContent
-  secretManifest.metadata.name = name || cert
+  secretManifest.metadata.name = secretName || cert
   secretManifest.metadata.namespace = namespace || "default"
 
   const parsedManifest = JSON.parse(JSON.stringify(secretManifest))
@@ -70,7 +74,7 @@ export default async function cert2secret(params: Cert2SecretParams) {
       await ensureDir(dirname(output))
     }
     await writeFile(output, yaml.safeDump(parsedManifest), "utf8")
-
+    console.log(chalk.green(`Success: please find your manifest at ${output}`))
   } catch (error) {
     console.log(error, secretManifest)
   }
