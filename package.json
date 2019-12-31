@@ -23,8 +23,16 @@
     "secret",
     "tls"
   ],
-  "author": "Emanuele Libralato",
+  "author": "Emanuele Libralato - 10ko",
+  "homepage": "https://github.com/10ko/cert2secret#readme",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10ko/cert2secret.git"
+  },
+  "bugs": {
+    "url": "https://github.com/10ko/cert2secret/issues"
+  },
   "dependencies": {
     "chalk": "^3.0.0",
     "commander": "^4.0.1",

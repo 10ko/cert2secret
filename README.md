@@ -2,6 +2,14 @@
 
 Easily generate a Kubernetes TLS secret manifest from a TLS key/certificate pair.
 
+**Use case:** you want to [secure an Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls) specifying a secret containing the TLS key/cert pair.
+
+> NOTE: If your goal it's just to create a tls secret in a cluster you can use `kubectl` instead.
+
+```sh
+kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+```
+
 ## Installation
 
 ```sh
