@@ -23,7 +23,6 @@ program
   )
 
 program.parse(process.argv)
-debugger
 
 cert2secret({
   key: program.key,
