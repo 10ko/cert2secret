@@ -5,7 +5,7 @@ Easily generate a Kubernetes TLS secret manifest from a TLS key/certificate pair
 ## Installation
 
 ```sh
-$ npm install -g cert2secret
+npm install -g cert2secret
 ```
 
 ## Usage
@@ -15,17 +15,20 @@ Usage: cert2secret [options]
 
 Options:
   -V, --version                  output the version number
-  -k, --key <key file>           You must specify a TLS key file
-  -c, --cert <certificate file>  You must specify a TLS certificate file
-  -d --dest <destination>        Destination for the generated yaml manifest
-  --name <name>                  The name of your certificate
-  --namespace <namespace>        The namespace for your certificate manifest
+  -k, --key <key file>           you must specify a TLS key file
+  -c, --cert <certificate file>  you must specify a TLS certificate file
+  -d --dest <destination>        destination for the generated yaml manifest
+  --secretname <secretname>      the name of your certificate used in the secret metadata
+  --namespace <namespace>        the namespace for your certificate manifest
   -h, --help                     output usage information
 ```
+
 ### Example
+
 ```sh
-$ cert2secret -k your-certificate.key -c your-certificate.crt -d ./certificate-manifest.yaml
+cert2secret -k your-certificate.key -c your-certificate.crt -d ./certificate-manifest.yaml
 ```
+
 The command above will generate a file called `certificate-manifest.yml` with the following content:
 
 ```yaml

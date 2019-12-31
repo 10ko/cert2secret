@@ -16,7 +16,10 @@ program
     "-d --dest <destination>",
     "destination for the generated yaml manifest"
   )
-  .option("--secretname <secretname>", "the name of your certificate")
+  .option(
+    "--secretname <secretname>",
+    "the name of your certificate used in the secret metadata"
+  )
   .option(
     "--namespace <namespace>",
     "the namespace for your certificate manifest"
