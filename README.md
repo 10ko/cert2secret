@@ -1,6 +1,6 @@
 # cert2secret
 
-Easily generate a Kubernetes TLS secret manifest from a TLS key/certificate pair.
+Generate a Kubernetes TLS secret manifest from a TLS key/certificate pair.
 
 **Use case:** you want to [secure an Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls) specifying a secret containing the TLS key/cert pair.
 
