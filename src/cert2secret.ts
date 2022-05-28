@@ -82,7 +82,10 @@ export default async function cert2secret(params: Cert2SecretParams) {
 
   try {
     if (!(await pathExists(dirname(output)))) {
-      await ensureDir(dirname(output))
+      await /* TODO: JSFIX could not patch the breaking change:
+      Creating a directory with fs-extra no longer returns the path 
+      Suggested fix: The returned promise no longer includes the path of the new directory */
+      ensureDir(dirname(output))
     }
     await writeFile(output, yaml.safeDump(parsedManifest), "utf8")
     console.log(chalk.green(`Success: please find your manifest at ${output}`))
